@@ -10,5 +10,5 @@ phases:
       - sam build
   post_build:
     commands:
-      # Added --resolve-s3 to let SAM automatically create an S3 bucket for the code
-      - sam deploy --stack-name HelloCICDStack --resolve-s3 --no-confirm-changeset --no-fail-on-empty-changeset
+      # Added --capabilities CAPABILITY_IAM to allow creation of IAM roles
+      - sam deploy --stack-name HelloCICDStack --resolve-s3 --capabilities CAPABILITY_IAM --no-confirm-changeset --no-fail-on-empty-changeset
