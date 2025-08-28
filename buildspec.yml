@@ -10,5 +10,5 @@ phases:
       - sam build
   post_build:
     commands:
-      # The --stack-name is REQUIRED. Let's call our stack "HelloCICDStack"
-      - sam deploy --stack-name HelloCICDStack --no-confirm-changeset --no-fail-on-empty-changeset
+      # Added --resolve-s3 to let SAM automatically create an S3 bucket for the code
+      - sam deploy --stack-name HelloCICDStack --resolve-s3 --no-confirm-changeset --no-fail-on-empty-changeset
