@@ -1,0 +1,36 @@
+# version of the CloudFormation template language
+AWSTemplateFormatVersion: '2010-09-09'
+# This magic line enables the simpler SAM shortcuts
+Transform: AWS::Serverless-2016-10-31
+# A simple description of your project
+Description: Simple Hello World API built with CI/CD
+
+# The heart of the template. Here you define all AWS resources.
+Resources:
+  # This is a logical name for your Lambda function (you can change it)
+  HelloWorldFunction:
+    # The type of resource. This is a SAM shortcut for a Lambda function.
+    Type: AWS::Serverless::Function
+    # Configuration for this resource
+    Properties:
+      # The Python file name and the function name inside it.
+      # app.lambda_handler means "in app.py, use the lambda_handler function"
+      Handler: app.lambda_handler
+      # The Python version to use
+      Runtime: python3.9
+      # Where to find the code. '.' means "in the same folder as this template"
+      CodeUri: ./
+      # Events that trigger this function. This will create an API Gateway.
+      Events:
+        # A name for this API event (we can choose any name)
+        HelloApi:
+          Type: Api # This creates an API Gateway
+          Properties:
+            Path: /hello # The URL path
+            Method: get # The HTTP method (GET, POST, etc.)
+
+# Optional: Output useful information after deployment
+Outputs:
+  HelloApiUrl:
+    Description: "URL of your API endpoint"
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/hello"
