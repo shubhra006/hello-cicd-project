@@ -1,19 +1,14 @@
 version: 0.2
 phases:
   install:
-    # Tell CodeBuild to use Python 3.9
     runtime-versions:
       python: 3.9
     commands:
-      # Install the AWS SAM CLI - the tool that understands template.yaml
       - pip install --upgrade aws-sam-cli
   build:
     commands:
-      # This command packages your application
       - sam build
   post_build:
     commands:
-      # This command deploys your application to AWS
-      # --no-confirm-changeset: "Do it automatically, don't ask for yes/no"
-      # --no-fail-on-empty-changeset: "It's okay if nothing changed, don't fail"
-      - sam deploy --no-confirm-changeset --no-fail-on-empty-changeset
+      # The --stack-name is REQUIRED. Let's call our stack "HelloCICDStack"
+      - sam deploy --stack-name HelloCICDStack --no-confirm-changeset --no-fail-on-empty-changeset
